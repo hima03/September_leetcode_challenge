@@ -1,0 +1,28 @@
+class Solution {
+public:
+    
+    bool isvalid(string A){
+        if ( (((A[0] - '0') * 10 + (A[1] - '0')) <= 23) && (((A[2]-'0') * 10 + (A[3]-'0')) <=59)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    string largestTimeFromDigits(vector<int>& A) {
+        string res,ans;
+        ans="";
+        sort(A.begin(), A.end());
+        res = to_string(A[0]) + to_string(A[1]) + to_string(A[2]) + to_string(A[3]);
+        do { 
+            if (isvalid(res)){
+                ans = res;
+            }
+	} while (next_permutation(res.begin(), res.end()));
+        
+        if(ans == ""){
+            return ans;
+        }
+        return (to_string(ans[0]-'0') + to_string(ans[1]-'0') + ":" + to_string(ans[2]-'0') + to_string(ans[3]-'0'));
+    }
+};
