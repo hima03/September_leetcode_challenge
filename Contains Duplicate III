@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
+        int i,j;
+        
+        //edge case (if t==0, then there must be two elements having same value)
+        set<int> s(nums.begin(),nums.end());
+        if(t==0 && nums.size() == s.size()){
+            return false;
+        }
+        
+        int length = nums.size();
+        for(i=0; i<nums.size(); i++){
+            int end = min((i+k+1),length);
+            for(int j=i+1; j<end; j++)
+            //value can be large after difference, so type cast to long long
+            if(abs((long long)(nums[i])-(long long)(nums[j]))<=t){
+                
+                return true;
+            }
+        }
+        
+        return false;
+    }
+};
