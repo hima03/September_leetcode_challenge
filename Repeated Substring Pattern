@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool repeatedSubstringPattern(string s) {
+        
+        string main_string = s;
+        string temp_string = s;
+        int len = s.length();
+        
+        // roatate string by 1 char and check if its the same
+        for(int i=0; i<len-1; i++){
+            temp_string = temp_string[len-1] + temp_string.substr(0, len-1);
+            
+            if(temp_string == main_string){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+};
