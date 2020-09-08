@@ -1,0 +1,43 @@
+class Solution {
+public:
+    void split(const string &s, char delim, vector<string> &elems) {
+    stringstream ss(s);
+    string item;
+    while (getline(ss, item, delim)) {
+        elems.push_back(item);
+    }
+}
+    
+    bool wordPattern(string pattern, string str) {
+        vector<string> words;
+        //store words in a vector
+        split(str, ' ', words); 
+        if(words.size() != pattern.length() ){
+            return false;
+        }
+        map<string,char> word_map;
+        map<char,string> char_map;
+        
+        map<string,char>::iterator word_it;
+        map<char,string>::iterator char_it;
+        
+        for(int i=0;i<pattern.length();i++){
+            word_it = word_map.find(words[i]);
+            char_it = char_map.find(pattern[i]);
+            
+            if(word_it == word_map.end()){
+                word_map.insert({words[i],pattern[i]});
+            }
+            
+            if(char_it == char_map.end()){
+                char_map.insert({pattern[i],words[i]});
+            }
+            
+            if((char_map[pattern[i]] != words[i]) || (word_map[words[i]] != pattern[i])){
+                return false;
+            }
+        }
+        
+        return true;
+    }
+};
