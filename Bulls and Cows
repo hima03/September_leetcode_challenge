@@ -1,0 +1,43 @@
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        unordered_map<int,char> map1;
+        unordered_map<int,char>::iterator itr;
+        unordered_map<char, int> map2;
+        unordered_map<char, int>::iterator it;
+        int bull=0;
+        int cow=0;
+        
+        for(int i=0; i<secret.length(); i++){
+            map1.insert({i,secret[i]});
+            it = map2.find(secret[i]);
+            if(it==map2.end()){
+                map2.insert({secret[i],1});
+            }else{
+                it->second++;
+            }
+        }
+        
+        for(int i=0; i<guess.length();i++){
+            it = map2.find(guess[i]);
+            if(it != map2.end()){
+                               
+                itr = map1.find(i);
+                if(itr != map1.end() && itr->second == guess[i]){
+                    bull++;
+                    if(it -> second == 0){
+                        cow--;
+                    }
+                }else{
+                    if(it->second!=0)
+                    {cow++;}
+                }
+                if(it->second != 0){
+                    it->second--;
+                }
+            }
+        }
+        
+        return to_string(bull) + "A" + to_string(cow) + "B";
+    }
+};
